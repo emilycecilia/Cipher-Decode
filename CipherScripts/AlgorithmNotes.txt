@@ -1,0 +1,43 @@
+* Monoalphabetic Algorithm Translation and Notes *
+
+maps text into data of how close text is to English plaintext
+
+m = plaintext
+c = ciphertext
+e_k(t) = encryption function
+d_k(t) = decryption function, inverse of e_k(t)
+k = key used
+s = ciphertext symbols sorted by dec frequency
+
+c = e_k(m)
+d_k(m) = (e_k)^-1(t)
+
+D(t) = cipherDigram
+E = englishDigram
+
+f(t) = SUM_(i,j)|D_(ij)(t) - E_(ij)|
+f(t) = sum of differences between english and cipher digram frequencies
+
+f(d(c, k)) = measure how good key k is
+
+STEP						   |	STATUS
+0. A = B = 1
+1. Construct initial key k with firstMapping		Done
+2. D = D(d(c, k))					Done
+3. v = SUM_(i,j)|D_(ij) - E_(ij)|			Done
+4. k' = k
+5. D' = D
+6. Swap elements a and b in k'
+	a) a = s[a], b = s[a + b], swap a and b
+	b) a += 1
+	c) break if a + b <= 27
+	d) a = 1
+	e) b += 1
+	f) exit if b = 27
+7. Exchange corresponding rows and columns in D'
+8. v' = SUM_(ij)|D'_(ij) - E_(ij)|
+9. if v' >= v return to step 4, else reset A and B to 1
+10. Let v = v'
+11. Let k = k'
+12. Let D = D'
+12. Return to step 6
